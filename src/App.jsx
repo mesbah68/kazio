@@ -22,27 +22,24 @@ function App() {
       handleSubmit();
     }
   },[debouncedSearchValue])
-
   const handleSubmit = useCallback( async () => {
     try {
-      console.log(debouncedSearchValue);
       const response = await axios({
         url: "https://api.giphy.com/v1/gifs/search",
         params: {
-          api_key: "KsJiJp6GCFs5t6hiXIB4OFgwc7UjyBCg",
+          api_key: import.meta.env.VITE_API_KEY,
           limit: 10,
           q: debouncedSearchValue
         },
         method: "GET",
       })
-      console.log('response ======>', response.data);
       setGifs(response.data.data);
     } catch(e) {
       console.log(e);
       alert('Ops! something wrong happened');
     }
   },[debouncedSearchValue,setGifs])
-  console.log(gifs);
+
   return (
     <div className="app h-full">
       <Header />
